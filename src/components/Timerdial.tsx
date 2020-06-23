@@ -14,11 +14,11 @@ const Timerdial: React.FC<ContainerProps> = ({ clock }) => {
   return (
     <div className='container'>
       <h3>HH : MM : SS : MS</h3>
-      <IonItemDivider />
+      <br />
       <h1>
         {clock.hr} | {clock.mm} | {clock.ss} | {clock.ms}
       </h1>
-      <IonItemDivider />
+      <br />
     </div>
   );
 };
