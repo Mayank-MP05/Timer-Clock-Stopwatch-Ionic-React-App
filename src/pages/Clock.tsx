@@ -8,6 +8,7 @@ import {
   IonText,
   IonList,
   IonItem,
+  IonButton,
 } from "@ionic/react";
 import ExploreContainer from "../components/ExploreContainer";
 import "./clock.css";
@@ -26,14 +27,16 @@ const Clock: React.FC = () => {
           <IonTitle>Clock</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
+      <IonContent class='ion-justify-content-center'>
         <IonHeader collapse='condense'>
           <IonToolbar>
             <IonTitle size='large'>Tab 2</IonTitle>
           </IonToolbar>
         </IonHeader>
         {/* Location Name */}
-        <IonText>Location Name Here</IonText>
+        <IonText class='ion-text-align-center'>
+          <h2>Location Name Her</h2>
+        </IonText>
 
         {/* Analog Clock Goes Here */}
         <p>
@@ -48,10 +51,21 @@ const Clock: React.FC = () => {
 
         {/* Location List */}
         <IonList>
-          <IonItem>Locatio 1</IonItem>
-          <IonItem>Locatio 2</IonItem>
-          <IonItem>Locatio 3</IonItem>
-          <IonItem>Locatio 4</IonItem>
+          <IonButton expand='block' shape='round'>
+            Locatio 1
+          </IonButton>
+
+          <IonButton expand='block' shape='round'>
+            Locatio 2
+          </IonButton>
+
+          <IonButton expand='block' shape='round'>
+            Locatio 3
+          </IonButton>
+
+          <IonButton expand='block' shape='round'>
+            Locatio 4
+          </IonButton>
         </IonList>
       </IonContent>
     </IonPage>
