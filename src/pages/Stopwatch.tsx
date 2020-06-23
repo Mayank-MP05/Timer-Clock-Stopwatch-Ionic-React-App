@@ -13,7 +13,7 @@ import ExploreContainer from "../components/ExploreContainer";
 import "./stopwatch.css";
 import Timerdial from "../components/Timerdial";
 let clock = {
-  hr: 5,
+  hh: 5,
   mm: 5,
   ss: 5,
   ms: 5,
@@ -26,13 +26,13 @@ const Stopwatch: React.FC = () => {
           <IonTitle>Stopwatch</IonTitle>
         </IonToolbar>
       </IonHeader>
-
-      <IonHeader collapse='condense'>
-        <IonToolbar>
-          <IonTitle size='large'>Stopwatch</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent>
+        <IonHeader collapse='condense'>
+          <IonToolbar>
+            <IonTitle size='large'>Stopwatch</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
         {/* Time Dialer Component"*/}
         <Timerdial clock={clock} />
 

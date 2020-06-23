@@ -3,7 +3,7 @@ import { IonItemDivider } from "@ionic/react";
 
 interface ContainerProps {
   clock: {
-    hr: Number;
+    hh: Number;
     mm: Number;
     ss: Number;
     ms: Number;
@@ -16,7 +16,7 @@ const Timerdial: React.FC<ContainerProps> = ({ clock }) => {
       <h3>HH : MM : SS : MS</h3>
       <br />
       <h1>
-        {clock.hr} | {clock.mm} | {clock.ss} | {clock.ms}
+        {clock.hh} | {clock.mm} | {clock.ss} | {clock.ms}
       </h1>
       <br />
     </div>
