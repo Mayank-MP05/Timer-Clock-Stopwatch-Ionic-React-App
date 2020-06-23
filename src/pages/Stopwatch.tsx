@@ -8,6 +8,8 @@ import {
   IonButton,
   IonList,
   IonItem,
+  IonRow,
+  IonCol,
 } from "@ionic/react";
 import ExploreContainer from "../components/ExploreContainer";
 import "./stopwatch.css";
@@ -37,18 +39,28 @@ const Stopwatch: React.FC = () => {
         <Timerdial clock={clock} />
 
         {/* Clear And Start and Stop button */}
-        <IonButton>Clear</IonButton>
-        <IonButton>Start / Stop</IonButton>
+        <IonRow>
+          <IonCol size='6'>
+            <IonButton color='danger' expand='full'>
+              Clear
+            </IonButton>
+          </IonCol>
+          <IonCol size='6'>
+            <IonButton color='success' expand='full'>
+              Start / Stop
+            </IonButton>
+          </IonCol>
+        </IonRow>
 
         {/*Note the Time Butto*/}
-        <IonButton>Note this Time ...</IonButton>
+        <IonButton expand='full'>Note this Time ...</IonButton>
 
         {/*Noted Time List*/}
         <IonList>
-          <IonItem>Time1</IonItem>
-          <IonItem>Time2</IonItem>
-          <IonItem>Time3</IonItem>
-          <IonItem>Time4</IonItem>
+          <IonButton expand='block'>Time1</IonButton>
+          <IonButton expand='block'>Time2</IonButton>
+          <IonButton expand='block'>Time3</IonButton>
+          <IonButton expand='block'>Time4</IonButton>
         </IonList>
       </IonContent>
     </IonPage>
