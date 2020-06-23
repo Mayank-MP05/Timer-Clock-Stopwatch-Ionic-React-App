@@ -8,7 +8,13 @@ import {
 } from "@ionic/react";
 import ExploreContainer from "../components/ExploreContainer";
 import "./stopwatch.css";
-
+import Timerdial from "../components/Timerdial";
+let clock = {
+  hr: 5,
+  mm: 5,
+  ss: 5,
+  ms: 5,
+};
 const Stopwatch: React.FC = () => {
   return (
     <IonPage>
@@ -20,10 +26,10 @@ const Stopwatch: React.FC = () => {
       <IonContent>
         <IonHeader collapse='condense'>
           <IonToolbar>
-            <IonTitle size='large'>Tab 1</IonTitle>
+            <IonTitle size='large'>Stopwatch</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name='Tab 1 page' />
+        <Timerdial clock={clock} />
       </IonContent>
     </IonPage>
   );
