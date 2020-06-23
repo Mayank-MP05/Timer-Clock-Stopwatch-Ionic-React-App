@@ -1,14 +1,14 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
-import './Tab3.css';
+import './timer.css';
 
-const Tab3: React.FC = () => {
+const Timer: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 3</IonTitle>
+          <IonTitle>Timer</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -23,4 +23,4 @@ const Tab3: React.FC = () => {
   );
 };
 
-export default Tab3;
+export default Timer;
