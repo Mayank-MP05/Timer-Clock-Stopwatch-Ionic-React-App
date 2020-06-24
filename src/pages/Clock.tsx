@@ -13,6 +13,7 @@ import {
 import ExploreContainer from "../components/ExploreContainer";
 import "./clock.css";
 import Timerdial from "../components/Timerdial";
+import Moment from "moment-timezone";
 let clock = {
   hh: 5,
   mm: 5,
@@ -20,15 +21,44 @@ let clock = {
   ms: 5,
 };
 
+const LocalTime = () => {
+  let date = Moment().tz("America/Los_Angeles");
+  /*
+America/New_York
+America/Los_Angeles
+Asia/Tokyo
+Australia/Sydney
+Asia/Colombo => Pune
+Asia/Dubai
+  */
+
+  let dateObj = date.toDate();
+  console.log(dateObj);
+};
+const LocationList = {
+  labels: [
+    "London , UK",
+    "Tokyo , Japan",
+    "Pune , India",
+    "Newyork , USA",
+    "Dubai , UAE",
+  ],
+  keys: [
+    "Europe/London",
+    "Asia/Tokyo",
+    "Asia/Colombo",
+    "America/New_York",
+    "Asia/Dubai",
+  ],
+};
 const GetTime = () => {
   let dt = new Date();
-  //console.log(dt);
+  console.log(dt);
   let hh, mm, ss, ms;
   hh = dt.getHours();
   mm = dt.getMinutes();
   ss = dt.getSeconds();
   ms = dt.getMilliseconds();
-
   clock = {
     hh,
     mm,
@@ -46,10 +76,10 @@ const Clock: React.FC = () => {
     ss: 0,
     ms: 0,
   });
+
+  const [Location, setLocation] = useState("Pune , IND");
   useEffect(() => {
-    setInterval(() => {
-      settime(GetTime());
-    }, 1);
+    settime(GetTime());
   }, []);
   return (
     <IonPage>
@@ -66,7 +96,7 @@ const Clock: React.FC = () => {
         </IonHeader>
         {/* Location Name */}
         <IonText class='ion-text-align-center'>
-          <h2>Location Name Her</h2>
+          <h2>{Location}</h2>
         </IonText>
 
         {/* Analog Clock Goes Here */}
@@ -82,21 +112,21 @@ const Clock: React.FC = () => {
 
         {/* Location List */}
         <IonList>
-          <IonButton expand='block' shape='round' onClick={GetTime}>
-            Locatio 1
-          </IonButton>
-
-          <IonButton expand='block' shape='round'>
-            Locatio 2
-          </IonButton>
-
-          <IonButton expand='block' shape='round'>
-            Locatio 3
-          </IonButton>
-
-          <IonButton expand='block' shape='round'>
-            Locatio 4
-          </IonButton>
+          {LocationList.labels.map((loc) => {
+            return (
+              <IonButton
+                expand='block'
+                shape='round'
+                key={LocationList.labels.indexOf(loc)}
+                onClick={() =>
+                  setLocation(
+                    LocationList.keys[LocationList.labels.indexOf(loc)]
+                  )
+                }>
+                {LocationList.keys[LocationList.labels.indexOf(loc)]}
+              </IonButton>
+            );
+          })}
         </IonList>
       </IonContent>
     </IonPage>
