@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   IonContent,
   IonHeader,
@@ -19,7 +19,38 @@ let clock = {
   ss: 5,
   ms: 5,
 };
+
+const GetTime = () => {
+  let dt = new Date();
+  //console.log(dt);
+  let hh, mm, ss, ms;
+  hh = dt.getHours();
+  mm = dt.getMinutes();
+  ss = dt.getSeconds();
+  ms = dt.getMilliseconds();
+
+  clock = {
+    hh,
+    mm,
+    ss,
+    ms,
+  };
+  return clock;
+  console.log(clock);
+};
+
 const Clock: React.FC = () => {
+  const [time, settime] = useState({
+    hh: 0,
+    mm: 0,
+    ss: 0,
+    ms: 0,
+  });
+  useEffect(() => {
+    setInterval(() => {
+      settime(GetTime());
+    }, 1);
+  }, []);
   return (
     <IonPage>
       <IonHeader>
@@ -51,7 +82,7 @@ const Clock: React.FC = () => {
 
         {/* Location List */}
         <IonList>
-          <IonButton expand='block' shape='round'>
+          <IonButton expand='block' shape='round' onClick={GetTime}>
             Locatio 1
           </IonButton>
 
