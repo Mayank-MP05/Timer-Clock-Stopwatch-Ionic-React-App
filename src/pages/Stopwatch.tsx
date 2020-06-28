@@ -14,8 +14,10 @@ import {
 import ExploreContainer from "../components/ExploreContainer";
 import "./stopwatch.css";
 import Timerdial from "../components/Timerdial";
-import { start } from "repl";
-import { TIMEOUT } from "dns";
+import Stopwatchlist from "../components/Stopwatchlist";
+
+import { time } from "console";
+
 let clock = {
   hh: 0,
   mm: 0,
@@ -23,13 +25,20 @@ let clock = {
   ms: 0,
 };
 
+const clockInterface = {
+  hh: Number,
+  mm: Number,
+  ss: Number,
+  ms: Number,
+};
+
 const Stopwatch: React.FC = () => {
   const [Time, setTime] = useState(clock);
-  const [savedTime, setsavedTime] = useState([clock]);
+  const [savedTime, setsavedTime] = useState(["Timer"]);
 
   const [btn, setBtn] = useState("Start");
   const [inter, setInter] = useState(setInterval(() => {}, 10000));
-
+  const [len, setlen] = useState(1);
   const IncTime = (time: any) => {
     //console.log(time);
     let { hh, mm, ss, ms } = time;
@@ -58,33 +67,14 @@ const Stopwatch: React.FC = () => {
       ms: time.ms,
     });
   };
-  let start: any;
-  const starting = () => {
-    console.log("Start");
-    start = setInterval(() => IncTime(Time), 100);
-  };
-  const stop = () => {
-    console.log("Stop");
-    let current = Time;
-    console.log(start);
-    clearInterval(start);
-    setTime({
-      hh: current.hh,
-      mm: current.mm,
-      ss: current.ss,
-      ms: current.ms,
-    });
-
-    console.log(current);
-  };
 
   const startStop = () => {
-    console.log("Start - Stop");
+    //console.log("Start - Stop");
     if (btn === "Start") {
       setInter(setInterval(() => IncTime(Time), 100));
       setBtn("Stop");
     } else {
-      console.log(inter);
+      //console.log(inter);
       clearInterval(inter);
       setBtn("Start");
     }
@@ -92,7 +82,8 @@ const Stopwatch: React.FC = () => {
 
   const Reset = () => {
     console.log("Reset");
-    clearInterval(start);
+    setBtn("Start");
+    clearInterval(inter);
     setTime({
       hh: 0,
       mm: 0,
@@ -101,15 +92,17 @@ const Stopwatch: React.FC = () => {
     });
   };
 
-  const dialer = (Time: any) => {
-    return <Timerdial clock={Time} />;
-  };
-
   const NoteThisTime = () => {
-    //setsavedTime(savedTime.push(Time));
+    const obj = Time;
+    let StringTime = `${obj.hh} | ${obj.mm} | ${obj.ss} | ${obj.ms}`;
+    setsavedTime([...savedTime, StringTime]);
+    console.log(savedTime);
+    setlen(len + 1);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    
+  }, [len]);
 
   return (
     <IonPage>
@@ -126,8 +119,7 @@ const Stopwatch: React.FC = () => {
         </IonHeader>
 
         {/* Time Dialer Component"*/}
-        {dialer(Time)}
-
+        <Timerdial clock={Time} />
         {/* Clear And Start and Stop button */}
         <IonRow>
           <IonCol size='6'>
@@ -136,33 +128,19 @@ const Stopwatch: React.FC = () => {
             </IonButton>
           </IonCol>
           <IonCol size='6'>
-            <IonButton
-              color='success'
-              expand='full'
-              onClick={() => IncTime(Time)}>
-              Start / Stop
+            <IonButton color='success' expand='full' onClick={startStop}>
+              {btn}
             </IonButton>
           </IonCol>
         </IonRow>
 
         {/*Note the Time Butto*/}
-        <IonButton expand='full'>Note this Time ...</IonButton>
+        <IonButton expand='full' onClick={NoteThisTime}>
+          Note this Time ...
+        </IonButton>
 
         {/*Noted Time List*/}
-        <IonList>
-          <IonButton expand='block' onClick={starting}>
-            Start
-          </IonButton>
-          <IonButton expand='block' onClick={stop}>
-            Stop
-          </IonButton>
-          <IonButton expand='block' onClick={() => console.log(Time)}>
-            Show Timee
-          </IonButton>
-          <IonButton expand='block' onClick={startStop}>
-            {btn}
-          </IonButton>
-        </IonList>
+        <Stopwatchlist list={savedTime} len={len}/>
       </IonContent>
     </IonPage>
   );
