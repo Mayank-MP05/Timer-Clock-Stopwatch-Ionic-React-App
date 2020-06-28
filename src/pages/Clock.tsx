@@ -21,20 +21,6 @@ let clock = {
   ms: 5,
 };
 
-const LocalTime = () => {
-  let date = Moment().tz("America/Los_Angeles");
-  /*
-America/New_York
-America/Los_Angeles
-Asia/Tokyo
-Australia/Sydney
-Asia/Colombo => Pune
-Asia/Dubai
-  */
-
-  let dateObj = date.toDate();
-  console.log(dateObj);
-};
 const LocationList = {
   labels: [
     "London , UK",
@@ -51,36 +37,48 @@ const LocationList = {
     "Asia/Dubai",
   ],
 };
-const GetTime = () => {
-  let dt = new Date();
-  console.log(dt);
-  let hh, mm, ss, ms;
-  hh = dt.getHours();
-  mm = dt.getMinutes();
-  ss = dt.getSeconds();
-  ms = dt.getMilliseconds();
-  clock = {
-    hh,
-    mm,
-    ss,
-    ms,
-  };
-  return clock;
-  console.log(clock);
-};
 
 const Clock: React.FC = () => {
+  // Time and Location State Objects
   const [time, settime] = useState({
     hh: 0,
     mm: 0,
     ss: 0,
     ms: 0,
   });
+  const [locate, setLocate] = useState("Asia/Colombo");
 
-  const [Location, setLocation] = useState("Pune , IND");
+  // Custom Needed Functions
+  const LocationTime = (key: string) => {
+    let date = Moment().tz(key);
+    let dateObj = date.toDate();
+    //console.log(dateObj);
+    return dateObj;
+  };
+  const GetTime = (locate: string) => {
+    let dt = LocationTime(locate);
+    //console.log(dt);
+    let hh, mm, ss, ms;
+    hh = dt.getHours();
+    mm = dt.getMinutes();
+    ss = dt.getSeconds();
+    ms = dt.getMilliseconds();
+    let clock = {
+      hh,
+      mm,
+      ss,
+      ms,
+    };
+    return clock;
+  };
+
+  //Useeffect to Update changes to UI
   useEffect(() => {
-    settime(GetTime());
-  }, []);
+    setInterval(() => {
+      settime(GetTime(locate));
+    }, 3000);
+    //console.log(locate);
+  });
   return (
     <IonPage>
       <IonHeader>
@@ -96,7 +94,7 @@ const Clock: React.FC = () => {
         </IonHeader>
         {/* Location Name */}
         <IonText class='ion-text-align-center'>
-          <h2>{Location}</h2>
+          <h2>{locate}</h2>
         </IonText>
 
         {/* Analog Clock Goes Here */}
@@ -108,7 +106,7 @@ const Clock: React.FC = () => {
         </p>
 
         {/* Digital Dial */}
-        <Timerdial clock={clock} />
+        <Timerdial clock={time} />
 
         {/* Location List */}
         <IonList>
@@ -119,11 +117,10 @@ const Clock: React.FC = () => {
                 shape='round'
                 key={LocationList.labels.indexOf(loc)}
                 onClick={() =>
-                  setLocation(
-                    LocationList.keys[LocationList.labels.indexOf(loc)]
-                  )
+                  setLocate(LocationList.keys[LocationList.labels.indexOf(loc)])
                 }>
                 {LocationList.keys[LocationList.labels.indexOf(loc)]}
+                {locate}
               </IonButton>
             );
           })}
