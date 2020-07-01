@@ -11,7 +11,7 @@ interface ContainerProps {
 }
 
 const Timerdial: React.FC<ContainerProps> = ({ clock }) => {
-  //console.log(clock);
+  console.log(clock);
   return (
     <div className='container d-flex justify-content-center ion-justify-content-center'>
       <h4>HH : MM : SS : MS</h4>

@@ -51,11 +51,13 @@ const Clock: React.FC = () => {
   // Custom Needed Functions
   const LocationTime = (key: string) => {
     let date = Moment().tz(key);
-    let dateObj = date.toDate();
-    //console.log(dateObj);
+    let dateObj = date.toObject();
+    //console.log(key);
+    //console.log(date);
     return dateObj;
   };
   const GetTime = (locate: string) => {
+    /*
     let dt = LocationTime(locate);
     //console.log(dt);
     let hh, mm, ss, ms;
@@ -70,15 +72,31 @@ const Clock: React.FC = () => {
       ms,
     };
     return clock;
+    */
   };
 
   //Useeffect to Update changes to UI
   useEffect(() => {
-    setInterval(() => {
-      settime(GetTime(locate));
-    }, 3000);
-    //console.log(locate);
-  });
+    const getT = (locate: string) => {
+      let dt = LocationTime(locate);
+      //console.log(dt);
+      let hh, mm, ss, ms;
+      hh = dt.hours;
+      mm = dt.minutes;
+      ss = dt.seconds;
+      let clock = {
+        hh,
+        mm,
+        ss,
+        ms: 0,
+      };
+      settime(clock);
+    };
+    let inter = setInterval(() => getT(locate), 1000);
+    return () => {
+      clearInterval(inter);
+    };
+  }, [locate, time]);
   return (
     <IonPage>
       <IonHeader>
@@ -120,7 +138,6 @@ const Clock: React.FC = () => {
                   setLocate(LocationList.keys[LocationList.labels.indexOf(loc)])
                 }>
                 {LocationList.keys[LocationList.labels.indexOf(loc)]}
-                {locate}
               </IonButton>
             );
           })}

@@ -34,7 +34,7 @@ const clockInterface = {
 
 const Stopwatch: React.FC = () => {
   const [Time, setTime] = useState(clock);
-  const [savedTime, setsavedTime] = useState(["Timer"]);
+  const [savedTime, setsavedTime] = useState(["timer"]);
 
   const [btn, setBtn] = useState("Start");
   const [inter, setInter] = useState(setInterval(() => {}, 10000));
@@ -45,16 +45,16 @@ const Stopwatch: React.FC = () => {
     if (ms >= 0 && ms < 9) {
       time.ms += 1;
     } else {
-      time.ms = 0;
       if (ss >= 0 && ss < 59) {
         time.ss += 1;
+        time.ms = 0;
       } else {
-        time.ss = 0;
         if (mm >= 0 && mm < 59) {
+          time.ss = 0;
           time.mm += 1;
         } else {
-          time.mm = 0;
           if (hh >= 0 && hh < 12) {
+            time.mm = 0;
             time.hr += 1;
           }
         }
@@ -100,9 +100,7 @@ const Stopwatch: React.FC = () => {
     setlen(len + 1);
   };
 
-  useEffect(() => {
-    
-  }, [len]);
+  useEffect(() => {}, [Time]);
 
   return (
     <IonPage>
@@ -140,7 +138,7 @@ const Stopwatch: React.FC = () => {
         </IonButton>
 
         {/*Noted Time List*/}
-        <Stopwatchlist list={savedTime} len={len}/>
+        <Stopwatchlist list={savedTime} len={len} />
       </IonContent>
     </IonPage>
   );
