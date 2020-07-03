@@ -15,7 +15,6 @@ import ExploreContainer from "../components/ExploreContainer";
 import "./stopwatch.css";
 import Timerdial from "../components/Timerdial";
 import Stopwatchlist from "../components/Stopwatchlist";
-import { act } from "react-dom/test-utils";
 
 let clock = {
   hh: 0,
@@ -154,7 +153,6 @@ const Stopwatch: React.FC = () => {
 
         {/*Noted Time List*/}
         <Stopwatchlist list={savedTime} len={len} />
-        <Stopwatchlist list={["Mayank", "digu"]} />
       </IonContent>
     </IonPage>
   );
