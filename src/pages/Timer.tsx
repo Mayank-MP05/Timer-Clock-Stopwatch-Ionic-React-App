@@ -51,13 +51,13 @@ const Timer: React.FC = () => {
             time.mm = 59;
           } else {
             clearInterval(inter);
-            settoast(true);
             setBtn("Start");
+            settoast(true);
+            return;
           }
         }
       }
     }
-    console.log("1");
     setTime({
       hh: time.hh,
       mm: time.mm,
@@ -69,12 +69,14 @@ const Timer: React.FC = () => {
   const startStop = () => {
     //console.log("Start - Stop");
     if (btn === "Start") {
+      console.log("Start called");
       let toMakeZero = target;
       setInter(setInterval(() => DecTime(toMakeZero), 100));
       setBtn("Stop");
     } else {
-      //console.log(inter);
+      console.log("Stop called");
       clearInterval(inter);
+      setInter(setInterval(() => {}, 100000));
       setBtn("Start");
     }
   };
@@ -82,6 +84,7 @@ const Timer: React.FC = () => {
   const Reset = () => {
     console.log("Reset");
     setBtn("Start");
+    settoast(false);
     clearInterval(inter);
     setTime({
       hh: 0,
@@ -91,7 +94,17 @@ const Timer: React.FC = () => {
     });
   };
 
-  useEffect(() => {}, [Time]);
+  useEffect(() => {
+    if (toast) {
+      if (btn === "Start") {
+        setTimeout(() => {
+          console.log("timeout set : " + toast);
+          settoast(false);
+        }, 1000);
+      }
+    }
+  }, [btn]);
+
   return (
     <IonPage>
       <IonHeader>
@@ -139,17 +152,11 @@ const Timer: React.FC = () => {
                   ms: 0,
                 })
               }>
-              Set Time
+              Set
             </IonButton>
           </IonCol>
         </IonRow>
-        {/* loading Symbol Animationn */}
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel vitae
-          voluptatem doloremque commodi. Cum nisi asperiores distinctio odio
-          vero, consectetur nobis quo eius neque optio accusantium quaerat,
-          reprehenderit, eos doloribus harum aspernatur dolore porro tempora!
-        </p>
+
         <Timerdial clock={Time} />
         {/* Clear and Start Stop Button */}
         <IonRow>
@@ -167,7 +174,6 @@ const Timer: React.FC = () => {
         <IonToast
           isOpen={toast}
           message='Timer Completed'
-          duration={1000}
           onDidDismiss={() => settoast(false)}
         />
       </IonContent>

@@ -111,9 +111,9 @@ const Stopwatch: React.FC = () => {
     }
     */
     if (active) {
-      Inter = setInterval(() => IncTime(Time), 100);
+      setinter(setInterval(() => IncTime(Time), 100));
     } else {
-      clearInterval(Inter);
+      clearInterval(inter);
     }
   }, [active]);
 

@@ -8,6 +8,7 @@ interface ContainerProps {
 }
 
 const Stopwatchlist: React.FC<ContainerProps> = ({ list, len }) => {
+  console.log("render");
   return (
     <IonList>
       {list.map((obj) => (
