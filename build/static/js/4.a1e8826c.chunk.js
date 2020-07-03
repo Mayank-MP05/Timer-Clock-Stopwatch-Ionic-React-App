@@ -1,0 +1,2 @@
+(this["webpackJsonpmarvel-client"]=this["webpackJsonpmarvel-client"]||[]).push([[4],{185:function(n,t,e){"use strict";e.r(t),e.d(t,"startStatusTap",(function(){return o}));var i=e(18),o=function(){var n=window;n.addEventListener("statusTap",(function(){Object(i.f)((function(){var t=n.innerWidth,e=n.innerHeight,o=document.elementFromPoint(t/2,e/2);if(o){var c=o.closest("ion-content");c&&c.componentOnReady().then((function(){Object(i.n)((function(){return c.scrollToTop(300)}))}))}}))}))}}}]);
+//# sourceMappingURL=4.a1e8826c.chunk.js.map

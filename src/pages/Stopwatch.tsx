@@ -32,7 +32,7 @@ const clockInterface = {
 
 const Stopwatch: React.FC = () => {
   const [Time, setTime] = useState(clock);
-  const [savedTime, setsavedTime] = useState(["timer"]);
+  const [savedTime, setsavedTime] = useState(["0 | 0 | 0 | 0"]);
   const [inter, setinter] = useState(setInterval(() => {}, 100000));
   const [btn, setBtn] = useState("Start");
   const [len, setlen] = useState(1);
