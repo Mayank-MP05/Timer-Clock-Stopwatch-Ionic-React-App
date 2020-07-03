@@ -50,6 +50,7 @@ const Timer: React.FC = () => {
             time.hr -= 1;
             time.mm = 59;
           } else {
+            clearInterval(inter);
             settoast(true);
             setBtn("Start");
           }

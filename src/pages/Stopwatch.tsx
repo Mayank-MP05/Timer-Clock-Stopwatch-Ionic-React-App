@@ -15,8 +15,7 @@ import ExploreContainer from "../components/ExploreContainer";
 import "./stopwatch.css";
 import Timerdial from "../components/Timerdial";
 import Stopwatchlist from "../components/Stopwatchlist";
-
-import { time } from "console";
+import { act } from "react-dom/test-utils";
 
 let clock = {
   hh: 0,
@@ -35,10 +34,12 @@ const clockInterface = {
 const Stopwatch: React.FC = () => {
   const [Time, setTime] = useState(clock);
   const [savedTime, setsavedTime] = useState(["timer"]);
-
+  const [inter, setinter] = useState(setInterval(() => {}, 100000));
   const [btn, setBtn] = useState("Start");
-  const [inter, setInter] = useState(setInterval(() => {}, 10000));
   const [len, setlen] = useState(1);
+
+  const [active, setactive] = useState(false);
+
   const IncTime = (time: any) => {
     //console.log(time);
     let { hh, mm, ss, ms } = time;
@@ -71,19 +72,19 @@ const Stopwatch: React.FC = () => {
   const startStop = () => {
     //console.log("Start - Stop");
     if (btn === "Start") {
-      setInter(setInterval(() => IncTime(Time), 100));
       setBtn("Stop");
+      setactive(true);
     } else {
       //console.log(inter);
-      clearInterval(inter);
       setBtn("Start");
+      setactive(false);
     }
   };
 
   const Reset = () => {
-    console.log("Reset");
+    //console.log("Reset");
     setBtn("Start");
-    clearInterval(inter);
+    setactive(false);
     setTime({
       hh: 0,
       mm: 0,
@@ -100,7 +101,21 @@ const Stopwatch: React.FC = () => {
     setlen(len + 1);
   };
 
-  useEffect(() => {}, [Time]);
+  useEffect(() => {
+    let Inter: any;
+    /*
+    if (btn === "Start") {
+      clearInterval(Inter);
+    } else {
+      Inter = setInterval(() => IncTime(Time), 100);
+    }
+    */
+    if (active) {
+      Inter = setInterval(() => IncTime(Time), 100);
+    } else {
+      clearInterval(Inter);
+    }
+  }, [active]);
 
   return (
     <IonPage>
@@ -139,6 +154,7 @@ const Stopwatch: React.FC = () => {
 
         {/*Noted Time List*/}
         <Stopwatchlist list={savedTime} len={len} />
+        <Stopwatchlist list={["Mayank", "digu"]} />
       </IonContent>
     </IonPage>
   );

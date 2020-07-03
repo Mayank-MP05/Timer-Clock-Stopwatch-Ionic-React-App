@@ -9,7 +9,9 @@ import {
   IonList,
   IonItem,
   IonButton,
+  IonRow,
 } from "@ionic/react";
+import AnalogClock from "./../components/analog_clock";
 import ExploreContainer from "../components/ExploreContainer";
 import "./clock.css";
 import Timerdial from "../components/Timerdial";
@@ -40,6 +42,7 @@ const LocationList = {
 
 const Clock: React.FC = () => {
   // Time and Location State Objects
+  const [options, setoptions] = useState({});
   const [time, settime] = useState({
     hh: 0,
     mm: 0,
@@ -91,6 +94,22 @@ const Clock: React.FC = () => {
         ms: 0,
       };
       settime(clock);
+      setoptions({
+        useCustomTime: true,
+        width: "200px",
+        border: true,
+        borderColor: "#2e2e2e",
+        baseColor: "#17a2b8",
+        centerColor: "#459cff",
+        handColors: {
+          second: "#d81c7a",
+          minute: "#fff",
+          hour: "#fff",
+        },
+        seconds: time.ss, // set your
+        minutes: time.mm, // own
+        hours: time.hh, // time here.
+      });
     };
     let inter = setInterval(() => getT(locate), 1000);
     return () => {
@@ -116,13 +135,10 @@ const Clock: React.FC = () => {
         </IonText>
 
         {/* Analog Clock Goes Here */}
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-          dignissimos harum earum rem iure, corporis odio alias, porro ratione,
-          tenetur aliquid maiores quia! Ratione modi a accusantium, ducimus sit
-          perferendis Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        </p>
 
+        <IonRow class='ion-margin-horizantal ion-justify-content-center'>
+          <AnalogClock {...options} />
+        </IonRow>
         {/* Digital Dial */}
         <Timerdial clock={time} />
 
